@@ -36,6 +36,10 @@ function get() {
 function generate() {
 	const { target, medium, term, campaign, content, list, result } = get();
 
+	// if target is empty
+	if (target.value.length <= 0) return;
+	if (list.value.length <= 0) return;
+
 	// Create array from list
 	let publicLinks;
 	const publicLinksNewLines = list.value.split("\n").map((link) => link.trim());
@@ -51,9 +55,6 @@ function generate() {
 	const resultLinks = publicLinks.map((link) => {
 		let result = "";
 		let key = "";
-
-		// if target is empty
-		if (target.value.length <= 0) return;
 
 		// Get key from link
 		if (link.startsWith("https://") || link.startsWith("http://")) {
