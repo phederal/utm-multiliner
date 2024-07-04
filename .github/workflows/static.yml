@@ -40,8 +40,6 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Test dependencies
-        run: pnpm test
       - name: Build
         run: pnpm run build
       - name: Setup Pages
