@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/style.css" />
+		<title>UTM Multiliner</title>
+	</head>
+
+	<body>
+		<main id="app">
+			<header>
+				<div
+					class="container mx-auto flex w-full flex-col items-baseline justify-between border-x border-b border-slate-200 p-4 sm:flex-row sm:items-center"
+				>
+					<div class="flex flex-row items-center gap-2">
+						<img src="/logo.svg" alt="logo" class="h-8 w-8" />
+						<h1 class="text-2xl font-bold tracking-tighter text-blue-700">UTM Multiliner</h1>
+					</div>
+					<span class="font-medium tracking-tight text-slate-400">Генератор UTM ссылок списком</span>
+				</div>
+			</header>
+
+			<section id="form">
+				<div class="container mx-auto border-x border-b border-slate-200 px-4 py-6">
+					<div class="w-full">
+						<!-- Start form -->
+						<form class="flex w-full flex-col gap-4 gap-y-6">
+							<!-- Target URL -->
+							<div>
+								<label for="target_url" class="block text-sm font-semibold leading-6 text-blue-700">Целевая ссылка</label>
+								<input
+									class="mt-1 w-full rounded-md bg-slate-100 p-2 outline-1 focus:outline-slate-300"
+									type="url"
+									name="url"
+									id="target_url"
+									placeholder="https://example.com/..."
+								/>
+							</div>
+							<!-- URM Params -->
+							<div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+								<div class="w-full">
+									<label for="utm_medium" class="block text-sm font-semibold leading-6 text-blue-700">utm_medium</label>
+									<input
+										class="mt-1 w-full rounded-md bg-slate-100 p-2 outline-1 focus:outline-slate-300"
+										type="text"
+										name="utm_medium"
+										id="utm_medium"
+										placeholder="promo"
+										value="promo"
+									/>
+								</div>
+								<div class="w-full">
+									<label for="utm_campaign" class="block text-sm font-semibold leading-6 text-blue-700">utm_campaign</label>
+									<input
+										class="mt-1 w-full rounded-md bg-slate-100 p-2 outline-1 focus:outline-slate-300"
+										type="text"
+										name="utm_campaign"
+										id="utm_campaign"
+										placeholder="ValentinesDay24"
+									/>
+								</div>
+								<div class="w-full">
+									<label for="utm_content" class="block text-sm font-semibold leading-6 text-blue-700">utm_content</label>
+									<input
+										class="mt-1 w-full rounded-md bg-slate-100 p-2 outline-1 focus:outline-slate-300"
+										type="text"
+										name="utm_content"
+										id="utm_content"
+										placeholder="langind_page"
+									/>
+								</div>
+								<div class="w-full">
+									<label for="utm_term" class="block text-sm font-semibold leading-6 text-blue-700">utm_term</label>
+									<input
+										class="mt-1 w-full rounded-md bg-slate-100 p-2 outline-1 focus:outline-slate-300"
+										type="text"
+										name="utm_term"
+										id="utm_term"
+										placeholder="free"
+									/>
+								</div>
+							</div>
+						</form>
+						<!-- End form -->
+						<div class="mt-8 flex w-full">
+							<!-- Start buttons -->
+							<div class="sticky top-4 flex h-fit w-full flex-col gap-2 sm:flex-row">
+								<button id="generate" type="submit" class="w-auto rounded-md bg-blue-700 p-2 px-12 text-white outline-none hover:bg-blue-800">
+									Сгенерировать
+								</button>
+								<button id="reset" type="reset" class="w-auto rounded-md bg-red-500 p-2 px-12 text-white outline-none hover:bg-red-600">
+									Сбросить
+								</button>
+							</div>
+							<!-- End buttons -->
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="areas">
+				<div class="container mx-auto border-x border-b border-slate-200 px-4 py-6">
+					<div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+						<div class="w-full">
+							<!-- Start public list -->
+							<span class="block text-sm font-semibold leading-6 text-blue-700">Ссылки</span>
+							<div></div>
+							<textarea
+								id="list"
+								class="mt-1 w-full resize-none overflow-hidden whitespace-pre-wrap rounded-md bg-slate-100 p-4 outline-1 focus:outline-slate-300"
+								oninput="auto_grow(this)"
+								name="list"
+								rows="5"
+								placeholder="https://t.me/..."
+							></textarea>
+							<!-- End public list -->
+						</div>
+						<div class="w-full">
+							<!-- Start result -->
+							<span class="block text-sm font-semibold leading-6 text-blue-700">Результат</span>
+							<div class="scroll-hidden mt-1 rounded-md bg-slate-100 p-4" style="overflow-x: overlay">
+								<textarea
+									id="result"
+									oninput="auto_grow(this)"
+									name="result"
+									placeholder=""
+									disabled
+									rows="5"
+									class="w-full resize-none overflow-hidden whitespace-pre"
+								></textarea>
+							</div>
+							<!-- End result -->
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<footer>
+				<div class="container mx-auto mt-2 p-4 text-center text-sm font-medium tracking-tight text-slate-400">
+					2024 © <a href="https://romon.io/?utm_source=utm_multiliner" target="_blank">Romon</a>. All rights reserved.
+				</div>
+			</footer>
+		</main>
+		<script type="module" src="/main.js"></script>
+	</body>
+</html>

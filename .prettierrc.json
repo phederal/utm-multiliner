@@ -1,0 +1,7 @@
+{
+	"printWidth": 160,
+	"tailwindConfig": "./tailwind.config.mjs",
+	"plugins": [
+		"prettier-plugin-tailwindcss"
+	]
+}
