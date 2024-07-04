@@ -1,4 +1,4 @@
-console.log("Hello, World!");
+console.log("Author - https://romon.io?utm_source=utm_multiliner");
 
 window.auto_grow = (element, anotherElement) => {
 	if (anotherElement) {
@@ -38,7 +38,6 @@ function generate() {
 
 	// if target is empty
 	if (target.value.length <= 0) return;
-	if (list.value.length <= 0) return;
 
 	// Create array from list
 	let publicLinks;
@@ -54,38 +53,51 @@ function generate() {
 	// Generate result
 	const resultLinks = publicLinks.map((link) => {
 		let result = "";
-		let key = "";
+		let source = "";
 
-		// Get key from link
+		// Get source from link
 		if (link.startsWith("https://") || link.startsWith("http://")) {
 			// Check if link start with https:// or http://
 			const parts = link.split("/");
 			// Check if parts length is greater than 3
 			if (parts.length > 3) {
 				const word = parts[3].split("?")[0]; // Extract the first word after the slash
-				key = word;
+				source = word;
 			}
 			// } else if (link.startsWith("t.me") || link.startsWith("vk.com")) {
-		} else {
+		} else if (link.split("/").length > 1) {
 			// Check if link start with vk.com or t.me
 			const parts = link.split("/");
 			if (parts.length > 1) {
 				const word = parts[1].split("?")[0]; // Extract the first word after the slash
-				key = word;
+				source = word;
 			}
+		} else {
+			source = link;
 		}
 
-		// If public link has key
-		if (key.length > 0) {
-			result += target.value;
+		// Add target URL to result
+		result += target.value;
 
-			if (!target.value.endsWith("/") && !target.value.endsWith(".html")) result += "/";
+		// Add slash if not exists
+		if (!target.value.endsWith("/") && !target.value.endsWith(".html")) result += "/";
 
-			if (key) result += `?utm_source=${key}`;
-			if (medium) result += `?utm_medium=${medium}`;
-			if (campaign) result += `?utm_campaign=${campaign}`;
-			if (content) result += `?utm_content=${content}`;
-			if (term) result += `?utm_term=${term}`;
+		// Create utm params
+		let isFirstUtmAdded = false;
+		let utmParams = {
+			utm_source: source,
+			utm_medium: medium,
+			utm_campaign: campaign,
+			utm_content: content,
+			utm_term: term,
+		};
+
+		// Add utm params
+		for (const [param, value] of Object.entries(utmParams)) {
+			if (value) {
+				result += isFirstUtmAdded ? `&${param}=${value}` : `?${param}=${value}`;
+				isFirstUtmAdded = true;
+			}
 		}
 
 		return result.trim();
