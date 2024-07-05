@@ -39,6 +39,9 @@ function generate() {
 	// if target is empty
 	if (target.value.length <= 0) return;
 
+	// Clear result
+	result.value = "";
+
 	// Create array from list
 	let publicLinks;
 	const publicLinksNewLines = list.value
@@ -113,18 +116,46 @@ function generate() {
 		return result.trim();
 	});
 
-	// Clear result
-	result.value = "";
+	// If public links is empty
+	if (resultLinks.length === 0) {
+		let oneLine = "";
+		// Add target URL to result
+		oneLine += target.value;
 
-	// Set result
-	resultLinks.forEach((link, index) => {
-		if (index === resultLinks.length - 1) {
-			result.value += `${link}`;
-		} else {
-			result.value += `${link}\n`;
+		// Add slash if not exists
+		if (!target.value.endsWith("/") && !target.value.endsWith(".html")) oneLine += "/";
+
+		// Create utm params
+		let isFirstUtmAdded = false;
+		let utmParams = {
+			utm_medium: medium,
+			utm_campaign: campaign,
+			utm_content: content,
+			utm_term: term,
+		};
+
+		// Add utm params
+		for (const [param, value] of Object.entries(utmParams)) {
+			if (value) {
+				oneLine += isFirstUtmAdded ? `&${param}=${value}` : `?${param}=${value}`;
+				isFirstUtmAdded = true;
+			}
 		}
+
+		oneLine.trim();
+		result.value = oneLine;
 		auto_grow(result);
-	});
+	} else {
+		// Add result
+		resultLinks.forEach((link, index) => {
+			if (index === resultLinks.length - 1) {
+				result.value += `${link}`;
+			} else {
+				result.value += `${link}\n`;
+			}
+			auto_grow(result);
+		});
+	}
 
 	// Set width
 	result.style.width = result.scrollWidth + "px";
