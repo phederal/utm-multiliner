@@ -41,13 +41,23 @@ function generate() {
 
 	// Create array from list
 	let publicLinks;
-	const publicLinksNewLines = list.value.split("\n").map((link) => link.trim());
-	const publicLinksSpaces = list.value.split(" ").map((link) => link.trim());
+	const publicLinksNewLines = list.value
+		.trim()
+		.split("\n")
+		.map((link) => link.trim());
+	const publicLinksSpaces = list.value
+		.trim()
+		.split(" ")
+		.map((link) => link.trim());
 
 	if (publicLinksNewLines.length > 1) {
-		publicLinks = publicLinksNewLines;
+		publicLinks = publicLinksNewLines.filter(function (line) {
+			return line.length < 1 ? false : true;
+		});
 	} else if (publicLinksSpaces.length > 0) {
-		publicLinks = publicLinksSpaces;
+		publicLinks = publicLinksSpaces.filter(function (line) {
+			return line.length < 1 ? false : true;
+		});
 	}
 
 	// Generate result
@@ -113,7 +123,6 @@ function generate() {
 		} else {
 			result.value += `${link}\n`;
 		}
-		// auto_grow(result);
 		auto_grow(result);
 	});
 
