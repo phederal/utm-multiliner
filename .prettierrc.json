@@ -1,5 +1,6 @@
 {
 	"printWidth": 160,
+	"bracketSameLine": true,
 	"tailwindConfig": "./tailwind.config.mjs",
 	"plugins": [
 		"prettier-plugin-tailwindcss"
